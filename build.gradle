@@ -13,6 +13,7 @@ buildscript {
 }
 
 apply plugin: 'java'
+apply plugin: 'groovy'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot' 
@@ -34,21 +35,34 @@ repositories {
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile("org.springframework.boot:spring-boot-starter-aop")
-    compile("org.springframework.cloud:spring-cloud-starter-config")
-    compile("org.springframework.cloud:spring-cloud-config-server")
-    compile("org.springframework.cloud:spring-cloud-starter-eureka")
-    compile("org.springframework.cloud:spring-cloud-starter-eureka-server")
-    compile("org.springframework.cloud:spring-cloud-starter-feign")
-    compile("org.springframework.cloud:spring-cloud-starter-hystrix")
-    compile("org.springframework.cloud:spring-cloud-starter-hystrix-dashboard")
-    compile("org.springframework.cloud:spring-cloud-starter")
+
+// This we will add later. With spring boot, just having it on your classpath will start stuff up.
+//    compile("org.springframework.cloud:spring-cloud-starter-config")
+//    compile("org.springframework.cloud:spring-cloud-config-server")
+//    compile("org.springframework.cloud:spring-cloud-starter-eureka")
+//    compile("org.springframework.cloud:spring-cloud-starter-eureka-server")
+//    compile("org.springframework.cloud:spring-cloud-starter-feign")
+//    compile("org.springframework.cloud:spring-cloud-starter-hystrix")
+//    compile("org.springframework.cloud:spring-cloud-starter-hystrix-dashboard")
+//    compile("org.springframework.cloud:spring-cloud-starter")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
     compile("org.springframework.boot:spring-boot-starter-data-rest")
     compile("org.springframework.boot:spring-boot-starter-hateoas")
-    compile("org.springframework.boot:spring-boot-starter-security")
+//    compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.boot:spring-boot-starter-web")
+
+    //There, standard java libs :)
+    compile("org.codehaus.groovy:groovy-all:2.4.1")
+    compile("com.google.guava:guava:18.0")
+
     runtime("com.h2database:h2")
-    testCompile("org.springframework.boot:spring-boot-starter-test") 
+
+    // and for some real testing
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile("org.spockframework:spock-core:1.0-groovy-2.4")
+    testRuntime("org.spockframework:spock-spring:1.0-groovy-2.4")
+    testRuntime("org.objenesis:objenesis:2.1")
+    testCompile('com.jayway.jsonpath:json-path:2.0.0')
 }
 
 dependencyManagement {
@@ -67,4 +81,11 @@ eclipse {
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.3'
+}
+
+//so that you have names of parameters in runtime (helpfull in Spring MVC)
+compileJava {
+    options.fork = true
+    options.incremental = true
+    options.compilerArgs << '-parameters'
 }
