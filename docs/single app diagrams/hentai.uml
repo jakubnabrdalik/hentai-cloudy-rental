@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>eu.solidcraft.hentai</OriginalElement>
+  <nodes>
+    <node x="249.05357142857136" y="326.0">eu.solidcraft.hentai.rentals.RentCreator</node>
+    <node x="487.0" y="237.0">eu.solidcraft.hentai.films.FilmRepository</node>
+    <node x="326.0" y="237.0">eu.solidcraft.hentai.rentals.Rent</node>
+    <node x="503.5" y="326.0">eu.solidcraft.hentai.films.FilmCrudRepository</node>
+    <node x="527.6785714285714" y="79.0">eu.solidcraft.hentai.films.PriceType</node>
+    <node x="409.0" y="237.0">eu.solidcraft.hentai.films.Film</node>
+    <node x="271.67857142857144" y="79.0">eu.solidcraft.hentai.films.FilmType.FirstDaysForBasePriceCalculator</node>
+    <node x="0.0" y="479.0">eu.solidcraft.hentai.RentalApplication</node>
+    <node x="261.42857142857144" y="0.0">eu.solidcraft.hentai.films.FilmType.PriceCalculator</node>
+    <node x="149.0" y="237.0">eu.solidcraft.hentai.rentals.RentPriceCalculator</node>
+    <node x="43.17857142857139" y="326.0">eu.solidcraft.hentai.rentals.RentReturner</node>
+    <node x="346.17857142857144" y="158.0">eu.solidcraft.hentai.films.FilmType</node>
+    <node x="132.6785714285714" y="405.0">eu.solidcraft.hentai.rentals.RentController</node>
+    <node x="0.0" y="237.0">eu.solidcraft.hentai.rentals.RentRepository</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="eu.solidcraft.hentai.films.FilmType" target="eu.solidcraft.hentai.films.FilmType.FirstDaysForBasePriceCalculator">
+      <point x="5.6843418860808015E-14" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="eu.solidcraft.hentai.films.FilmType" target="eu.solidcraft.hentai.films.FilmType.PriceCalculator">
+      <point x="-28.999999999999943" y="-14.5" />
+      <point x="360.67857142857144" y="133.0" />
+      <point x="261.17857142857144" y="133.0" />
+      <point x="261.17857142857144" y="54.0" />
+      <point x="293.42857142857144" y="54.0" />
+      <point x="-32.0" y="14.5" />
+    </edge>
+    <edge source="eu.solidcraft.hentai.rentals.RentCreator" target="eu.solidcraft.hentai.rentals.RentRepository">
+      <point x="-41.24999999999994" y="-14.5" />
+      <point x="262.80357142857144" y="296.0" />
+      <point x="96.75" y="296.0" />
+      <point x="32.25" y="14.5" />
+    </edge>
+    <edge source="eu.solidcraft.hentai.rentals.RentController" target="eu.solidcraft.hentai.rentals.RentReturner">
+      <point x="-31.0" y="-14.5" />
+      <point x="163.6785714285714" y="380.0" />
+      <point x="102.17857142857139" y="380.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="eu.solidcraft.hentai.films.FilmType.FirstDaysForBasePriceCalculator" target="eu.solidcraft.hentai.films.FilmType.PriceCalculator">
+      <point x="0.0" y="-14.5" />
+      <point x="389.67857142857144" y="54.0" />
+      <point x="357.42857142857144" y="54.0" />
+      <point x="32.0" y="14.5" />
+    </edge>
+    <edge source="eu.solidcraft.hentai.rentals.RentController" target="eu.solidcraft.hentai.rentals.RentCreator">
+      <point x="31.0" y="-14.5" />
+      <point x="225.6785714285714" y="380.0" />
+      <point x="304.05357142857133" y="380.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="eu.solidcraft.hentai.films.FilmCrudRepository" target="eu.solidcraft.hentai.films.FilmRepository">
+      <point x="0.0" y="-14.5" />
+      <point x="31.0" y="14.5" />
+    </edge>
+    <edge source="eu.solidcraft.hentai.rentals.RentReturner" target="eu.solidcraft.hentai.rentals.RentRepository">
+      <point x="-29.5" y="-14.5" />
+      <point x="72.67857142857139" y="306.0" />
+      <point x="32.25" y="306.0" />
+      <point x="-32.25" y="14.5" />
+    </edge>
+    <edge source="eu.solidcraft.hentai.rentals.Rent" target="eu.solidcraft.hentai.films.FilmType">
+      <point x="0.0" y="-14.5" />
+      <point x="357.5" y="212.0" />
+      <point x="367.92857142857144" y="212.0" />
+      <point x="-21.75" y="14.5" />
+    </edge>
+    <edge source="eu.solidcraft.hentai.films.Film" target="eu.solidcraft.hentai.films.FilmType">
+      <point x="0.0" y="-14.5" />
+      <point x="438.0" y="212.0" />
+      <point x="411.42857142857144" y="212.0" />
+      <point x="21.75" y="14.5" />
+    </edge>
+    <edge source="eu.solidcraft.hentai.rentals.RentCreator" target="eu.solidcraft.hentai.rentals.Rent">
+      <point x="13.750000000000057" y="-14.5" />
+      <point x="317.80357142857144" y="296.0" />
+      <point x="357.5" y="296.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="eu.solidcraft.hentai.films.FilmType" target="eu.solidcraft.hentai.films.PriceType">
+      <point x="29.000000000000057" y="-14.5" />
+      <point x="418.67857142857144" y="133.0" />
+      <point x="574.6785714285714" y="133.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="eu.solidcraft.hentai.rentals.RentReturner" target="eu.solidcraft.hentai.rentals.RentPriceCalculator">
+      <point x="29.5" y="-14.5" />
+      <point x="131.6785714285714" y="306.0" />
+      <point x="188.25" y="306.0" />
+      <point x="-39.25" y="14.5" />
+    </edge>
+    <edge source="eu.solidcraft.hentai.rentals.RentCreator" target="eu.solidcraft.hentai.films.FilmRepository">
+      <point x="41.25000000000006" y="-14.5" />
+      <point x="345.30357142857144" y="306.0" />
+      <point x="518.0" y="306.0" />
+      <point x="-31.0" y="14.5" />
+    </edge>
+    <edge source="eu.solidcraft.hentai.rentals.RentCreator" target="eu.solidcraft.hentai.rentals.RentPriceCalculator">
+      <point x="-13.749999999999943" y="-14.5" />
+      <point x="290.30357142857144" y="286.0" />
+      <point x="266.75" y="286.0" />
+      <point x="39.25" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="444.5" y="293.5" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

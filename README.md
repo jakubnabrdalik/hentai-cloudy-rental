@@ -73,3 +73,82 @@ give one point per rental (regardless of the time rented).
  
 I've added -parameters to javac, so I can use some simplifications in Spring MVC, thanks to parameter names in methods. 
 
+### Authentication/Authorization
+
+Since this is a RESTFULL API, I have a few options. I could:
+
+Basic auth
+
+For development:
+user = test
+password = test
+
+(all sample data are in data.sql)
+
+### Logging
+
+Logback. With vintage XML.
+
+## Functional
+
+### Film catalogue
+
+Url: http://localhost:8080/films{?page,size,sort}
+
+Since this is REST, I will use Spring Data Rest to handle the catalogue with paging and HATEOAS.
+
+For testing this I need some Films in the DB, so I have a few options. I cold for example create a JpaRepository (CRUD) 
+and save it directly, but I'd like to treat Film as immutable and save() method is updating them. I could populate the 
+database like in dev profile, so that I can work on immutable database (rollbacks for tests give me that benefit),
+but I would either have to violate DRY in static fields (for 'where' part AST of Groovy requires static or @Shared), or
+read the data directly from DB (without Spring Data JPA). Every option has its benefits and disadvantages. 
+I've decided to have a add save() method on a repo but only in test profile.
+
+You could ask, why would I write tests for a code produced by Spring with @RepositoryRestResource annotation. 
+I wouldn't write an integration test for that, but I need to store the requirements, and the best way to do it is with 
+automated acceptance tests. This way the code communicates its requirements itself.
+
+There are a few gotchas of using Spring Data Rest, though. 
+
+While hibernate is completely fine with composed natural primary 
+key (in case of our films: year + title), Spring Data Rest isn't. This, however, is actually not that bad, because the 
+URL created for composed natural primary key, would look a bit ugly.
+
+Second problem is that I cannot use HTTP PATH on /rents to make a return, because it clashes with defaults from Spring 
+Data Rest. So instead, I went with /returns 
+
+### Viewing your rentals
+
+Url: http://localhost:8080/rents/{rentId}
+
+Warning: you have to be logged as the same user who's rental it is. 
+
+### Renting
+
+If your username doesn't match the logged user, you'll not be allowed.
+
+Sample Post:
+ 
+POST /rents HTTP/1.1
+Host: localhost:8080
+Cache-Control: no-cache
+Content-Disposition: form-data; name="filmId"
+1
+Content-Disposition: form-data; name="numberOfDays"
+2
+Content-Disposition: form-data; name="username"
+seba
+
+### Returning
+
+I assumed everyone can return the film, not only the person who rented (happened a lot back in the VHS days, with
+my sisters/dad returning my films)
+
+Sample Post:
+
+POST /returns HTTP/1.1
+Host: localhost:8080
+Cache-Control: no-cache
+Content-Disposition: form-data; name="rentId"
+3
+
