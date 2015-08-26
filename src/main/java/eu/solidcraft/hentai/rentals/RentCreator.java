@@ -1,8 +1,8 @@
 package eu.solidcraft.hentai.rentals;
 
-import eu.solidcraft.hentai.films.Film;
-import eu.solidcraft.hentai.films.FilmType;
 import eu.solidcraft.hentai.infrastructure.TimeService;
+import eu.solidcraft.hentai.rentals.dtos.Film;
+import eu.solidcraft.hentai.rentals.price.FilmType;
 import eu.solidcraft.hentai.users.User;
 import eu.solidcraft.hentai.users.UserRepository;
 
@@ -49,7 +49,7 @@ class RentCreator {
     private FilmType getFilmType(Long filmId) {
         Film film = filmCatalogueClient.findOne(filmId).getBody();
         verifyExists(filmId, film);
-        return film.getFilmType();
+        return film.filmType;
     }
 
     private void verifyExists(Long filmId, Film film) {

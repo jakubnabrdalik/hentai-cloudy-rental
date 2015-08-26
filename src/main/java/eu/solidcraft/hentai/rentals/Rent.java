@@ -1,6 +1,6 @@
 package eu.solidcraft.hentai.rentals;
 
-import eu.solidcraft.hentai.films.FilmType;
+import eu.solidcraft.hentai.rentals.price.FilmType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -10,7 +10,7 @@ import java.time.Period;
 import java.time.temporal.ChronoUnit;
 
 @Entity
-public class Rent {
+class Rent {
     @Id @GeneratedValue
     private Long id;
 

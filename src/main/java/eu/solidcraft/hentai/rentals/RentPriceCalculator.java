@@ -1,6 +1,6 @@
 package eu.solidcraft.hentai.rentals;
 
-import eu.solidcraft.hentai.films.FilmType;
+import eu.solidcraft.hentai.rentals.price.FilmType;
 import org.springframework.core.env.Environment;
 
 import java.math.BigDecimal;

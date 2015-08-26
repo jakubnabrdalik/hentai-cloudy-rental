@@ -1,6 +1,6 @@
 package eu.solidcraft.hentai.rentals;
 
-import eu.solidcraft.hentai.films.Film;
+import eu.solidcraft.hentai.rentals.dtos.Film;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;

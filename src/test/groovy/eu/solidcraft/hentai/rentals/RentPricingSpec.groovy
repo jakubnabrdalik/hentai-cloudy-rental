@@ -1,5 +1,5 @@
 package eu.solidcraft.hentai.rentals
-import eu.solidcraft.hentai.films.FilmType
+import eu.solidcraft.hentai.rentals.price.FilmType
 import eu.solidcraft.hentai.infrastructure.TimeService
 import org.springframework.mock.env.MockEnvironment
 import spock.lang.Specification
