@@ -1,5 +1,4 @@
 package acceptance
-
 import base.MvcIntegrationSpec
 import eu.solidcraft.hentai.films.Film
 import eu.solidcraft.hentai.films.FilmType

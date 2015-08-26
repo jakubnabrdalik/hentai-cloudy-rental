@@ -1,25 +1,24 @@
 package eu.solidcraft.hentai.rentals;
 
-import eu.solidcraft.hentai.films.FilmRepository;
+import eu.solidcraft.hentai.films.Film;
 import eu.solidcraft.hentai.films.FilmType;
 import eu.solidcraft.hentai.infrastructure.TimeService;
 import eu.solidcraft.hentai.users.User;
 import eu.solidcraft.hentai.users.UserRepository;
 
 import javax.transaction.Transactional;
-import java.util.Optional;
 
 import static org.springframework.util.Assert.*;
 
 class RentCreator {
     private RentRepository rentRepository;
-    private FilmRepository filmRepository;
+    private FilmCatalogueClient filmCatalogueClient;
     private UserRepository userRepository;
     private RentPriceCalculator rentPriceCalculator;
 
-    RentCreator(RentRepository rentRepository, FilmRepository filmRepository, UserRepository userRepository, RentPriceCalculator rentPriceCalculator) {
+    public RentCreator(RentRepository rentRepository, FilmCatalogueClient filmCatalogueClient, UserRepository userRepository, RentPriceCalculator rentPriceCalculator) {
         this.rentRepository = rentRepository;
-        this.filmRepository = filmRepository;
+        this.filmCatalogueClient = filmCatalogueClient;
         this.userRepository = userRepository;
         this.rentPriceCalculator = rentPriceCalculator;
     }
@@ -48,8 +47,14 @@ class RentCreator {
     }
 
     private FilmType getFilmType(Long filmId) {
-        return filmRepository.findOne(filmId)
-                .flatMap((film) -> Optional.of(film.getFilmType()))
-                .orElseThrow(() -> new NoSuchFilmException(filmId));
+        Film film = filmCatalogueClient.findOne(filmId).getBody();
+        verifyExists(filmId, film);
+        return film.getFilmType();
+    }
+
+    private void verifyExists(Long filmId, Film film) {
+        if (film == null) {
+            throw new NoSuchFilmException(filmId);
+        }
     }
 }

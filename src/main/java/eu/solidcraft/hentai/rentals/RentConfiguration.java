@@ -1,6 +1,5 @@
 package eu.solidcraft.hentai.rentals;
 
-import eu.solidcraft.hentai.films.FilmRepository;
 import eu.solidcraft.hentai.users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,14 +12,14 @@ class RentConfiguration {
     private RentRepository rentRepository;
 
     @Autowired
-    private FilmRepository filmRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private FilmCatalogueClient filmCatalogueClient;
 
     @Bean
     public RentCreator rentCreator(Environment environment) {
-        return new RentCreator(rentRepository, filmRepository, userRepository, rentPriceCalculator(environment));
+        return new RentCreator(rentRepository, filmCatalogueClient, userRepository, rentPriceCalculator(environment));
     }
 
     @Bean

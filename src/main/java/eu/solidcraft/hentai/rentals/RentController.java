@@ -3,6 +3,7 @@ package eu.solidcraft.hentai.rentals;
 import com.google.common.collect.ImmutableMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,13 +22,13 @@ public class RentController {
     }
 
     @PreAuthorize("principal?.username == #username")
-    @RequestMapping(value = "/rents", method = RequestMethod.POST)
+    @RequestMapping(value = "/rents", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, Long> rent(@RequestParam Long filmId, @RequestParam Integer numberOfDays, @RequestParam String username) {
         Rent rent = rentCreator.rent(filmId, numberOfDays, username);
         return ImmutableMap.of("rentId", rent.getId());
     }
 
-    @RequestMapping(value = "/returns", method = RequestMethod.POST)
+    @RequestMapping(value = "/returns", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, BigDecimal> returnFilm(@RequestParam Long rentId) {
         Rent rent = rentReturner.returnFilm(rentId);
         return ImmutableMap.of("surcharge", rent.getLateReturnSurgcharge());
