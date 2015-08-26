@@ -48,7 +48,7 @@ class RentCreator {
     }
 
     private FilmType getFilmType(Long filmId) {
-        return Optional.of(filmRepository.findOne(filmId))
+        return filmRepository.findOne(filmId)
                 .flatMap((film) -> Optional.of(film.getFilmType()))
                 .orElseThrow(() -> new NoSuchFilmException(filmId));
     }

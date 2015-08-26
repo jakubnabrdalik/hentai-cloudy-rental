@@ -11,20 +11,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class FilmCatalogueSpec extends MvcIntegrationSpec {
 
+    public static final String FILMS_URL = "/films"
+
     def "system shows details of a film"() {
         given:
             Film film = persistedFilms[0]
         when:
-            ResultActions resultActions = mockMvc.perform(get("/films/" + film.id))
+            ResultActions resultActions = mockMvc.perform(get(FILMS_URL + "/" + film.id))
         then:
             resultActions.andExpect(status().isOk())
             hasDetailsOf(resultActions, film)
     }
 
-
     def "system shows list of films for rent"() {
         when:
-            ResultActions resultActions = mockMvc.perform(get("/films"))
+            ResultActions resultActions = mockMvc.perform(get(FILMS_URL))
 
         then:
             resultActions.andExpect(status().isOk())
