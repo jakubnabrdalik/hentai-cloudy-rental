@@ -1,5 +1,6 @@
 package eu.solidcraft.hentai.rentals;
 
+import com.netflix.hystrix.contrib.javanica.aop.aspectj.HystrixCommandAspect;
 import eu.solidcraft.hentai.users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -18,8 +19,18 @@ class RentConfiguration {
     private FilmCatalogueClient filmCatalogueClient;
 
     @Bean
-    public RentCreator rentCreator(Environment environment) {
-        return new RentCreator(rentRepository, filmCatalogueClient, userRepository, rentPriceCalculator(environment));
+    public FilmCatalogueClientWithHystrix filmCatalogueClientWithHystrix() {
+        return new FilmCatalogueClientWithHystrix(filmCatalogueClient);
+    }
+
+    @Bean
+    public HystrixCommandAspect hystrixAspect() {
+        return new HystrixCommandAspect();
+    }
+
+    @Bean
+    public RentCreator rentCreator(FilmCatalogueClientWithHystrix filmCatalogueClientWithHystrix, RentPriceCalculator rentPriceCalculator) {
+        return new RentCreator(rentRepository, filmCatalogueClientWithHystrix, userRepository, rentPriceCalculator);
     }
 
     @Bean

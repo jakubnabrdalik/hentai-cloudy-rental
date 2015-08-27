@@ -7,16 +7,17 @@ import eu.solidcraft.hentai.users.User;
 import eu.solidcraft.hentai.users.UserRepository;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 import static org.springframework.util.Assert.*;
 
 class RentCreator {
     private RentRepository rentRepository;
-    private FilmCatalogueClient filmCatalogueClient;
+    private FilmCatalogueClientWithHystrix filmCatalogueClient;
     private UserRepository userRepository;
     private RentPriceCalculator rentPriceCalculator;
 
-    public RentCreator(RentRepository rentRepository, FilmCatalogueClient filmCatalogueClient, UserRepository userRepository, RentPriceCalculator rentPriceCalculator) {
+    public RentCreator(RentRepository rentRepository, FilmCatalogueClientWithHystrix filmCatalogueClient, UserRepository userRepository, RentPriceCalculator rentPriceCalculator) {
         this.rentRepository = rentRepository;
         this.filmCatalogueClient = filmCatalogueClient;
         this.userRepository = userRepository;
@@ -26,7 +27,9 @@ class RentCreator {
     @Transactional
     Rent rent(Long filmId, Integer numberOfDays, String username) {
         validateParams(filmId, numberOfDays, username);
-        FilmType filmType = getFilmType(filmId);
+        Optional<Film> optionalFilm  = filmCatalogueClient.getFilmById(filmId);
+        Film film = optionalFilm.orElseThrow(() -> (new NoSuchFilmException(filmId))); //here is where we should propose another movie probably
+        FilmType filmType = film.filmType;
         Rent rent = new Rent(filmId, filmType, numberOfDays, username, TimeService.now(), rentPriceCalculator);
         rentRepository.save(rent);
         giveBonusPoints(username, filmType);
@@ -44,18 +47,5 @@ class RentCreator {
         notNull(numberOfDays);
         isTrue(numberOfDays > 0);
         hasText(username);
-    }
-
-    private FilmType getFilmType(Long filmId) {
-        //TODO: all bad things can happen here. We need hystrix
-        Film film = filmCatalogueClient.findOne(filmId).getBody();
-        verifyExists(filmId, film);
-        return film.filmType;
-    }
-
-    private void verifyExists(Long filmId, Film film) {
-        if (film == null) {
-            throw new NoSuchFilmException(filmId);
-        }
     }
 }
