@@ -39,7 +39,7 @@ dependencies {
 // This we will add later. With spring boot, just having it on your classpath will start stuff up.
     compile("org.springframework.cloud:spring-cloud-starter-config")
 //    compile("org.springframework.cloud:spring-cloud-config-server")
-//    compile("org.springframework.cloud:spring-cloud-starter-eureka")
+    compile("org.springframework.cloud:spring-cloud-starter-eureka")
 //    compile("org.springframework.cloud:spring-cloud-starter-eureka-server")
     compile("org.springframework.cloud:spring-cloud-starter-feign")
     compile("org.springframework.cloud:spring-cloud-starter-hystrix")

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient(url = "http://localhost:8069")
+@FeignClient("FILMS")
 interface FilmCatalogueClient {
 
     @RequestMapping(value = "/films/{filmId}", method = RequestMethod.GET)

@@ -1,0 +1,15 @@
+spring.application.name: eureka
+spring.profiles.default: dev
+
+server.port: 8761
+
+eureka:
+  instance:
+    hostname: localhost
+    leaseRenewalIntervalInSeconds: 3
+  #because we are not part of a cluster
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
