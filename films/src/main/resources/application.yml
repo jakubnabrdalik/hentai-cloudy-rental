@@ -1,9 +1,3 @@
-spring.jpa.hibernate:
-  ddl-auto: create-drop
-  naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
-  show_sql: true
-  format_sql: true
-
+spring.application.name: films
 spring.profiles.default: dev
-
 server.port: 8069

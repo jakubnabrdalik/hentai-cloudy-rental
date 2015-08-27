@@ -1,3 +1,2 @@
-spring:
-  application:
-    name: hentai-rental-microservice
+cloud:
+  config.uri: http://localhost:8888

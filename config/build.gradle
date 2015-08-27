@@ -37,18 +37,18 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-aop")
 
 // This we will add later. With spring boot, just having it on your classpath will start stuff up.
-    compile("org.springframework.cloud:spring-cloud-starter-config")
-//    compile("org.springframework.cloud:spring-cloud-config-server")
+//    compile("org.springframework.cloud:spring-cloud-starter-config")
+    compile("org.springframework.cloud:spring-cloud-config-server")
 //    compile("org.springframework.cloud:spring-cloud-starter-eureka")
 //    compile("org.springframework.cloud:spring-cloud-starter-eureka-server")
     compile("org.springframework.cloud:spring-cloud-starter-feign")
     compile("org.springframework.cloud:spring-cloud-starter-hystrix")
-            compile("org.springframework.cloud:spring-cloud-starter-hystrix-dashboard")
+    compile("org.springframework.cloud:spring-cloud-starter-hystrix-dashboard")
 //    compile("org.springframework.cloud:spring-cloud-starter")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
     compile("org.springframework.boot:spring-boot-starter-data-rest")
     compile("org.springframework.boot:spring-boot-starter-hateoas")
-    compile("org.springframework.boot:spring-boot-starter-security")
+//    compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.boot:spring-boot-starter-web")
 
     //There, standard java libs :)

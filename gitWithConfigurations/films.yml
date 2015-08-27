@@ -1,0 +1,7 @@
+spring.jpa.hibernate:
+  ddl-auto: create-drop
+  naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
+  show_sql: true
+  format_sql: true
+
+best.movie.ever: gits

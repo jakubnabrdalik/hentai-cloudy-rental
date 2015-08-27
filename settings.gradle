@@ -1,1 +1,1 @@
-include ":rentals", ":films"
+include ":rentals", ":films", ":config"
