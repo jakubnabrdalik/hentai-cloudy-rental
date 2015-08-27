@@ -3,9 +3,12 @@ package eu.solidcraft.hentai.rentals;
 import com.netflix.hystrix.contrib.javanica.aop.aspectj.HystrixCommandAspect;
 import eu.solidcraft.hentai.users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
+
+import java.math.BigDecimal;
 
 @Configuration
 class RentConfiguration {
@@ -34,12 +37,13 @@ class RentConfiguration {
     }
 
     @Bean
-    public RentReturner rentReturner(Environment environment) {
-        return new RentReturner(rentRepository, rentPriceCalculator(environment));
+    public RentReturner rentReturner(RentPriceCalculator rentPriceCalculator) {
+        return new RentReturner(rentRepository, rentPriceCalculator);
     }
 
     @Bean
-    public RentPriceCalculator rentPriceCalculator(Environment environment) {
-        return new RentPriceCalculator(environment);
+    @RefreshScope
+    public RentPriceCalculator rentPriceCalculator(@Value("${renting.price.PREMIUM}") BigDecimal premiumPrice, @Value("${renting.price.BASIC}") BigDecimal basicPrice) {
+        return new RentPriceCalculator(premiumPrice, basicPrice);
     }
 }

@@ -1,17 +1,22 @@
 package eu.solidcraft.hentai.rentals;
 
 import eu.solidcraft.hentai.rentals.price.FilmType;
-import org.springframework.core.env.Environment;
+import eu.solidcraft.hentai.rentals.price.PriceType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.math.BigDecimal;
 
 import static org.springframework.util.Assert.notNull;
 
 class RentPriceCalculator {
-    private Environment environment;
+    private BigDecimal premiumPrice;
+    private BigDecimal basicPrice;
 
-    RentPriceCalculator(Environment environment) {
-        this.environment = environment;
+    @Autowired
+    public RentPriceCalculator(@Value("${renting.price.PREMIUM}")  BigDecimal premiumPrice, @Value("${renting.price.BASIC}") BigDecimal basicPrice) {
+        this.premiumPrice = premiumPrice;
+        this.basicPrice = basicPrice;
     }
 
     BigDecimal calculatePrice(FilmType filmType, Integer numberOfDays) {
@@ -21,7 +26,7 @@ class RentPriceCalculator {
     }
 
     private BigDecimal getPriceForFirstDay(FilmType filmType) {
-        BigDecimal priceForFirstDay = environment.getProperty("renting.price." + filmType.getPriceType().toString(), BigDecimal.class);
+        BigDecimal priceForFirstDay = (filmType.getPriceType() == PriceType.PREMIUM) ? premiumPrice : basicPrice;
         validatePriceForFirstDay(priceForFirstDay, filmType);
         return priceForFirstDay;
     }

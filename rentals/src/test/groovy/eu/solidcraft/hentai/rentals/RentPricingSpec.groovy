@@ -1,22 +1,18 @@
 package eu.solidcraft.hentai.rentals
-import eu.solidcraft.hentai.rentals.price.FilmType
 import eu.solidcraft.hentai.infrastructure.TimeService
-import org.springframework.mock.env.MockEnvironment
+import eu.solidcraft.hentai.rentals.price.FilmType
 import spock.lang.Specification
 import spock.lang.Unroll
 
 import java.time.LocalDate
 
 class RentPricingSpec extends Specification {
-    String premiumPrice = '40'
-    String basePrice = '30'
+    BigDecimal premiumPrice = 40
+    BigDecimal basePrice = 30
     RentPriceCalculator priceCalculator
 
     def setup() {
-        MockEnvironment environment = new MockEnvironment().
-                withProperty('renting.price.PREMIUM', premiumPrice).
-                withProperty('renting.price.BASIC', basePrice)
-        priceCalculator = new RentPriceCalculator(environment)
+        priceCalculator = new RentPriceCalculator(premiumPrice, basePrice)
     }
 
     @Unroll
